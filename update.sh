@@ -1,2 +1,2 @@
-cp ~/.vimrc ./.vimrc
-cp ~/.zshrc ./.zshrc
+cp ~/.vimrc ~/.rcs/.vimrc
+cp ~/.zshrc ~/.rcs/.zshrc
