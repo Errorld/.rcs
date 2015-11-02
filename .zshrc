@@ -82,10 +82,31 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vi='vim'
+
+# file works
 alias -s txt=vim
+
 # shotcut
+alias vi='vim'
     # apt-get
 alias _install='sudo apt-get install'
+alias _update='sudo apt-get update'
 alias _upgrade='sudo apt-get upgrade'
-# alias -s py=vim
+    # git
+alias _clone=_clone
+_clone()
+{
+    git clone git@github.com:$1/$2.git 
+}
+
+#trash
+alias rm=trash
+mkdir -p .trash
+trash()
+{
+    mv $@ ~/.trash/
+}
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+source /usr/local/bin/virtualenvwrapper.sh
