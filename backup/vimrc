@@ -21,6 +21,7 @@ inoremap <C-u> <Esc>d0cl
 inoremap <C-k> <Esc><Right>C
 inoremap <C-d> <Esc><Right>s
 inoremap <M-d> <C-o>de
+" inoremap <C-h> <Esc>dx
 
 ""Test iabbreviations
 iabbrev adn and
