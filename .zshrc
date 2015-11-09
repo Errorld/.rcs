@@ -110,4 +110,42 @@ trash()
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh
-# end
+
+# flask
+export MAIL_USERNAME='458436919@QQ.COM'
+export MAIL_PASSWORD='3191203zant3115'
+export FLASKY_ADMIN='458436919@QQ.COM'
+
+##ruby
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+##jekyll
+# new post
+alias newp=newp
+newp()
+{
+    title=$1
+    pdate=`date +%Y-%m-%d`
+    pname=~/errorld.github.io/_posts/$pdate-$title.md
+    echo $pname
+    touch $pname
+    ###
+    echo '---'>>$pname
+    echo 'layout: post'>>$pname
+    echo 'title: '$title>>$pname
+    echo 'date: '$pdate>>$pname
+    echo 'categories: blog'>>$pname
+    echo 'tags: [,]'>>$pname
+    echo 'description: '>>$pname
+    echo '---'>>$pname
+    ###
+    vim $pname
+}
+# push post
+alias pushp=pushp
+pushp()
+{
+    git add *
+    git commit -m 'new post: '$title
+    git push&
+}
