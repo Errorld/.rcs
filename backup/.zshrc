@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/jharvard/.oh-my-zsh
+  export ZSH=/home/sekai/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -82,3 +82,70 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# file works
+alias -s txt=vim
+
+# shotcut
+alias vi='vim'
+    # apt-get
+alias _install='sudo apt-get install'
+alias _update='sudo apt-get update'
+alias _upgrade='sudo apt-get upgrade'
+    # git
+alias _clone=_clone
+_clone()
+{
+    git clone git@github.com:$1/$2.git 
+}
+
+#trash
+alias rm=trash
+mkdir -p .trash
+trash()
+{
+    mv $@ ~/.trash/
+}
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+source /usr/local/bin/virtualenvwrapper.sh
+
+# flask
+export MAIL_USERNAME='458436919@QQ.COM'
+export MAIL_PASSWORD='3191203zant3115'
+export FLASKY_ADMIN='458436919@QQ.COM'
+
+##ruby
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+##jekyll
+# new post
+alias newp=newp
+newp()
+{
+    title=$1
+    pdate=`date +%Y-%m-%d`
+    pname=~/errorld.github.io/_posts/$pdate-$title.md
+    echo $pname
+    touch $pname
+    ###
+    echo '---'>>$pname
+    echo 'layout: post'>>$pname
+    echo 'title: '$title>>$pname
+    echo 'date: '$pdate>>$pname
+    echo 'categories: blog'>>$pname
+    echo 'tags: [,]'>>$pname
+    echo 'description: '>>$pname
+    echo '---'>>$pname
+    ###
+    vim $pname
+}
+# push post
+alias pushp=pushp
+pushp()
+{
+    git add $pname
+    git commit -m 'new post: '$title
+    git push&
+}

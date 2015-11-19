@@ -1,33 +1,3 @@
-set number
-set smartindent
-set tabstop=4 " tabstop
-set shiftwidth=4
-set expandtab
-
-"" A better way to Esc
-inoremap jj <Esc>
-
-""Emacs style insert mode shortcutfuck
-" Cursor movefuck
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-" inoremap <C-p> <Up>
-" inoremap <C-n> <Down>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
-inoremap <M-b> <C-o>b
-inoremap <M-f> <C-o>w
-" Delete
-inoremap <C-u> <Esc>d0cl
-inoremap <C-k> <Esc><Right>C
-inoremap <C-d> <Esc><Right>s
-inoremap <M-d> <C-o>de
-" inoremap <C-h> <Esc>dx
-
-""Test iabbreviations
-iabbrev adn and
-
-""set title
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示相关  
@@ -54,29 +24,18 @@ set foldenable      " 允许折叠
 set foldmethod=manual   " 手动折叠  
 "set background=dark "背景使用黑色 
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
-" 显示中文帮助
-if version >= 603
-    set helplang=cn
-    set encoding=utf-8
-endif
 " 设置配色方案
 "colorscheme murphy
-"字体 
-"if (has("gui_running")) 
-"   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10 
-"endif 
- 
 
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936
 set fileencoding=utf-8
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.java,.py文件，自动插入文件头 
-
-
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py exec ":call SetTitle()" 
 let $author_name = "Errorld"
 let $author_email = "errorld@outlook.com"
@@ -84,24 +43,26 @@ let $author_email = "errorld@outlook.com"
 func SetTitle() 
     "如果文件类型为.sh文件 or py
     if &filetype == 'sh'
-        call setline(1,"\#########################################################################") 
-        call append(line("."), "\# File Name: ".expand("%")) 
-        call append(line(".")+1, "\# Author: ".$author_name) 
-        call append(line(".")+2, "\# Mail: ".$author_email) 
-        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
-        call append(line(".")+4, "\#########################################################################") 
-        call append(line(".")+5, "\#!/bin/bash") 
-        call append(line(".")+6, "") 
-	elseif &filetype == 'python'
-        call setline(1,"\#########################################################################") 
-	    call append(line("."), "\#!encoding: utf-8")
+        call setline(1,"\#!/bin/bash") 
+        call append(line("."), "\#########################################################################") 
         call append(line(".")+1, "\# File Name: ".expand("%")) 
         call append(line(".")+2, "\# Author: ".$author_name) 
         call append(line(".")+3, "\# Mail: ".$author_email) 
         call append(line(".")+4, "\# Created Time: ".strftime("%c")) 
         call append(line(".")+5, "\#########################################################################") 
-        call append(line(".")+6, "\#!/usr/bin/env python") 
+        call append(line(".")+6, "") 
         call append(line(".")+7, "") 
+	elseif &filetype == 'python'
+        call setline(1,"\#!/usr/bin/env python") 
+	    call append(line("."), "\#!encoding: utf-8")
+        call append(line(".")+1, "\#########################################################################") 
+        call append(line(".")+2, "\# File Name: ".expand("%")) 
+        call append(line(".")+3, "\# Author: ".$author_name) 
+        call append(line(".")+4, "\# Mail: ".$author_email) 
+        call append(line(".")+5, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+6, "\#########################################################################") 
+        call append(line(".")+7, "") 
+        call append(line(".")+8, "") 
     else 
         call setline(1, "/*************************************************************************") 
         call append(line("."), "    > File Name: ".expand("%")) 
@@ -130,24 +91,11 @@ endfunc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nmap <leader>w :w!<cr>
-nmap <leader>f :find<cr>
 
-" 映射全选+复制 ctrl+a
-map <C-A> ggVGY
-map! <C-A> <Esc>ggVGY
-map <F12> gg=G
-" 选中状态下 Ctrl+c 复制
-vmap <C-c> "+y
-"去空行  
-nnoremap <F2> :g/^\s*$/d<CR> 
-"比较文件  
-nnoremap <C-F2> :vert diffsplit 
 "新建标签  
 map <M-F2> :tabnew<CR>  
 "列出当前目录文件  
 map <F3> :tabnew .<CR>  
-"打开树状文件目录  
-map <C-F3> \be  
 "C，C++ 按F5编译运行
 map <F6> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
@@ -175,6 +123,7 @@ func! Rungdb()
     exec "!g++ % -g -o %<"
     exec "!gdb ./%<"
 endfunc
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ""实用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -221,8 +170,8 @@ set tabstop=4
 " 统一缩进为4
 set softtabstop=4
 set shiftwidth=4
-" 不要用空格代替制表符
-set noexpandtab
+" 用空格代替制表符
+set expandtab
 " 在行和段开始处使用制表符
 set smarttab
 " 显示行号
@@ -297,6 +246,7 @@ au BufRead,BufNewFile *  setfiletype txt
 :inoremap ] <c-r>=ClosePair(']')<CR>
 :inoremap " ""<ESC>i
 :inoremap ' ''<ESC>i
+
 function! ClosePair(char)
     if getline('.')[col('.') - 1] == a:char
         return "\<Right>"
@@ -304,6 +254,7 @@ function! ClosePair(char)
         return a:char
     endif
 endfunction
+
 filetype plugin indent on 
 "打开文件类型检测, 加了这句才可以用智能补全
 set completeopt=longest,menu
@@ -324,7 +275,7 @@ set tags=tags
 "set autochdir 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"其他东东
+"其他
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "默认打开Taglist 
 let Tlist_Auto_Open=1 
@@ -340,3 +291,26 @@ let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
+
+
+"" A better way to Esc
+inoremap jj <Esc>
+""Emacs style insert mode shortcutfuck
+" Cursor movefuck
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+" inoremap <C-p> <Up>
+" inoremap <C-n> <Down>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-o> <Esc>o
+" Delete
+inoremap <C-u> <Esc>d0cl
+inoremap <C-k> <Esc><Right>C
+inoremap <C-d> <Esc><Right>s
+inoremap <C-w> <Esc>dbxi
+
+""Test iabbreviations
+iabbrev adn and
+iabbrev retrun return
+
