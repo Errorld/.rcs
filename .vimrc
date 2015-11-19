@@ -1,8 +1,5 @@
-set nocompatible
 set number
-set autoindent
 set smartindent
-set cindent
 set tabstop=4 " tabstop
 set shiftwidth=4
 set expandtab
@@ -86,7 +83,7 @@ let $author_email = "errorld@outlook.com"
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
     "如果文件类型为.sh文件 or py
-    if &filetype == 'sh' || &filetype == 'python'
+    if &filetype == 'sh'
         call setline(1,"\#########################################################################") 
         call append(line("."), "\# File Name: ".expand("%")) 
         call append(line(".")+1, "\# Author: ".$author_name) 
@@ -94,6 +91,15 @@ func SetTitle()
         call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
         call append(line(".")+4, "\#########################################################################") 
         call append(line(".")+5, "\#!/bin/bash") 
+        call append(line(".")+6, "") 
+	elseif &filetype == 'python'
+        call setline(1,"\#########################################################################") 
+        call append(line("."), "\# File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: ".$author_name) 
+        call append(line(".")+2, "\# Mail: ".$author_email) 
+        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+4, "\#########################################################################") 
+        call append(line(".")+5, "\#!/usr/bin/env python") 
 	    call append(line(".")+6, "\#!encoding: utf-8")
         call append(line(".")+7, "") 
     else 
@@ -143,11 +149,11 @@ map <F3> :tabnew .<CR>
 "打开树状文件目录  
 map <C-F3> \be  
 "C，C++ 按F5编译运行
-map <F8> :call CompileRunGcc()<CR>
+map <F6> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
-        exec "!g++ % -o %<"
+        exec "!gcc % -o %<"
         exec "! ./%<"
     elseif &filetype == 'cpp'
         exec "!g++ % -o %<"
@@ -156,13 +162,14 @@ func! CompileRunGcc()
         exec "!javac %" 
         exec "!java %<"
     elseif &filetype == 'sh'
+		:!chmod +x ./%
         :!./%
 	elseif &filetype == 'python'
 		exec "!python %"
     endif
 endfunc
 "C,C++的调试
-nmap <F5> :call Rungdb()<CR>
+nmap <F8> :call Rungdb()<CR>
 func! Rungdb()
     exec "w"
     exec "!g++ % -g -o %<"

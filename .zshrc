@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+  export ZSH=/home/sekai/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -53,7 +53,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+  export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -82,6 +82,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
 # file works
 alias -s txt=vim
 
@@ -109,7 +110,6 @@ trash()
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh
-<<<<<<< HEAD
 
 # flask
 export MAIL_USERNAME='458436919@QQ.COM'
@@ -145,14 +145,7 @@ newp()
 alias pushp=pushp
 pushp()
 {
-    git add *
+    git add $pname
     git commit -m 'new post: '$title
     git push&
-# end
-
-# festival-tts
-alias say=say
-say()
-{
-    echo $@ | festival --tts
 }
