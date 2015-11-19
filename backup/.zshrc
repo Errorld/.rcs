@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/sekai/.oh-my-zsh
+  export ZSH=/home/jharvard/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -82,10 +82,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vi='vim'
-alias -s txt=vim
-# shotcut
-    # apt-get
-alias _install='sudo apt-get install'
-alias _upgrade='sudo apt-get upgrade'
-# alias -s py=vim
